@@ -1,8 +1,11 @@
 # Testnet deployment runbook
 
-Status: **PENDING FAUCET FUNDING**. No testnet transaction has been broadcast for this
-project yet. This file is a procedure, not a deployment record. Real addresses, hashes and
-blocks will be written to `deployments/` only after receipts exist.
+Status: **PENDING FAUCET FUNDING**. Preflight confirmed Base Sepolia chain id 84532 and
+Ethereum Sepolia chain id 11155111 with a zero deployer balance; both runs stopped at the
+balance guard. No testnet transaction has been broadcast for this project yet. This file is a
+procedure, not a deployment record. Real addresses, hashes and blocks will be written to
+`deployments/` only after receipts exist. See
+[docs/testing/2026-11-07/preflight.md](../testing/2026-11-07/preflight.md).
 
 ## Deployer
 

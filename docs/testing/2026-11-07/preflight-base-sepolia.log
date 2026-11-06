@@ -1,0 +1,5 @@
+profile:  base-sepolia (84532)
+rpc:      https://sepolia.base.org
+deployer: 0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B
+balance:  0.000000000000000000 ETH
+Deployer has no test ETH. Fund 0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B through a faucet and rerun.
