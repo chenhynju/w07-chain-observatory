@@ -168,6 +168,21 @@ npm start
 Deployment records are written to [deployments](deployments) only after real receipts exist.
 No placeholder addresses or transactions are committed.
 
+## Live API (preliminary)
+
+A read-only indexer is running on a Tencent Cloud server:
+
+```text
+https://43-130-127-57.sslip.io/metadata
+https://43-130-127-57.sslip.io/latest
+https://43-130-127-57.sslip.io/series?from=26350904&to=<latest>
+```
+
+It currently indexes a recent window of Ethereum mainnet USDC/WETH data. Coverage is partial
+and explicitly labeled; this is not a full-history claim. The `purelamp.uk` hostname
+`w07-api.purelamp.uk` is configured in Caddy and becomes active after its DNS record is added.
+See [docs/deployment/server-live.md](docs/deployment/server-live.md).
+
 ## Quick start
 
 ```sh
