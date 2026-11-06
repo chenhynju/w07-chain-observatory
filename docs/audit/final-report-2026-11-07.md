@@ -8,7 +8,7 @@ decision is limited to the commit and files listed below.
 
 | Item | Value |
 | --- | --- |
-| Audited code commit | `b8dceea619209aca92f6e104833776151b0ac975` |
+| Audited code commit | `96bf9f20660192c244fd5a0c1fb285f346f69b05` |
 | Report date | 2026-11-07 |
 | Runtime | Node 24.20.0, Ponder 0.18.4, Hono 4.13.16, viem 2.57.16, Next.js 15.5.29 |
 | Storage | PGlite (tests/local) and PostgreSQL 16 (integration smoke) |
