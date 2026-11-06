@@ -1,0 +1,26 @@
+Starts a fuzzing campaign
+
+Usage:
+  medusa fuzz [flags]
+
+Flags:
+      --config string               path to config file
+      --compilation-target string   target contract or directory to compile
+      --workers int                 number of fuzzer workers (unless a config file is provided, default is 10)
+      --timeout int                 number of seconds to run the fuzzer campaign for (unless a config file is provided, default is 0). 0 means that timeout is not enforced
+      --test-limit uint             number of transactions to test before exiting (unless a config file is provided, default is 0). 0 means that test limit is not enforced
+      --seq-len int                 maximum transactions to run in sequence (unless a config file is provided, default is 100)
+      --target-contracts strings    target contracts for fuzz testing (unless a config file is provided, default is [])
+      --corpus-dir string           directory path for corpus items and coverage reports (unless a config file is provided, default is "")
+      --senders strings             account address(es) used to send state-changing txns
+      --deployer string             account address used to deploy contracts
+      --no-color                    disables colored terminal output
+      --fail-fast                   enables stop on failed test
+      --explore                     enables exploration mode
+      --use-slither                 runs slither and use the current cached results
+      --use-slither-force           runs slither and overwrite the cached results
+      --rpc-url string              RPC URL to fetch contracts over
+      --rpc-block uint              block number to use when fetching contracts over RPC
+  -v, --verbosity count             set execution trace verbosity levels: -v (top-level calls only), -vv (detailed, default), -vvv (trace all call sequence elements)
+      --log-level string            set which level of log messages will be displayed (trace, debug, info, warn, error, or panic; default: info)
+  -h, --help                        help for fuzz

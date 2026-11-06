@@ -1,0 +1,58 @@
+{
+    "exitcode": 0,
+    "test_results": {
+        "test/Valuation.t.sol:ValuationTest": [
+            {
+                "name": "check_unitPrice(uint112,uint112)",
+                "exitcode": 0,
+                "num_models": 0,
+                "models": [],
+                "num_paths": [
+                    5,
+                    1,
+                    0
+                ],
+                "time": [
+                    0.02873410399999443,
+                    0.028711100000002432,
+                    1.960299999836934e-05
+                ],
+                "num_bounded_loops": 0
+            },
+            {
+                "name": "check_zeroDenominator(uint112,uint112,uint112)",
+                "exitcode": 0,
+                "num_models": 0,
+                "models": [],
+                "num_paths": [
+                    4,
+                    1,
+                    0
+                ],
+                "time": [
+                    0.012271151000000202,
+                    0.012252948000003983,
+                    1.410300000515008e-05
+                ],
+                "num_bounded_loops": 0
+            },
+            {
+                "name": "check_zeroToken1(uint112,uint112,uint112)",
+                "exitcode": 0,
+                "num_models": 0,
+                "models": [],
+                "num_paths": [
+                    5,
+                    2,
+                    0
+                ],
+                "time": [
+                    0.02302171099999839,
+                    0.02300840800000259,
+                    1.0002000003339617e-05
+                ],
+                "num_bounded_loops": 0
+            }
+        ]
+    }
+}

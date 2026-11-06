@@ -1,0 +1,32 @@
+[1m[33mwarn[0m[0m [1mUnable to find the config file at /home/chenhy/workspace/web3-portfolio/w07-chain-observatory/verification/solidity/medusa.json, will use the default project configuration for the crytic-compile compilation platform instead[0m
+⇾ Compiling targets with crytic-compile
+⇾ Running command:
+/home/chenhy/.local/bin/crytic-compile test/Valuation.t.sol --export-format solc
+⇾ Finished compiling targets in 19s
+⇾ artifacts: Medusa is running against a new set of build artifacts
+⇾ No Slither cached results found at slither_results.json
+⇾ Running Slither:
+/home/chenhy/.local/bin/slither test/Valuation.t.sol --ignore-compile --print echidna --json -
+⇾ Finished running Slither in 24s
+⇾ Running with a timeout of 45 seconds
+⇾ Setting up test chain
+⇾ Finished setting up test chain
+⇾ Creating corpus...
+⇾ Fuzzing with 2 workers
+⇾ [NOT STARTED] Assertion Test: ValuationTest.check_zeroDenominator(uint112,uint112,uint112)
+⇾ [NOT STARTED] Assertion Test: ValuationTest.check_zeroToken1(uint112,uint112,uint112)
+⇾ [NOT STARTED] Assertion Test: ValuationTest.mark(uint112,uint112,uint112,uint112)
+⇾ [NOT STARTED] Assertion Test: ValuationTest.testFuzz_rounding(uint112,uint112,uint112,uint112)
+⇾ [NOT STARTED] Assertion Test: ValuationTest.check_unitPrice(uint112,uint112)
+⇾ fuzz: elapsed:       0s, calls:          0 (     0/sec), seq/s:      0, branches:      3, corpus:     0, failures: 0/0, gas/s:            0
+⇾ fuzz: elapsed:       3s, calls:      10106 (  3368/sec), seq/s:   3367, branches:    114, corpus:     8, failures: 0/10105, gas/s:     78071531
+⇾ Transaction test limit reached, halting now...
+⇾ Fuzzer stopped, test results follow below ...
+⇾ [PASSED] Assertion Test: ValuationTest.check_unitPrice(uint112,uint112)
+⇾ [PASSED] Assertion Test: ValuationTest.check_zeroDenominator(uint112,uint112,uint112)
+⇾ [PASSED] Assertion Test: ValuationTest.check_zeroToken1(uint112,uint112,uint112)
+⇾ [PASSED] Assertion Test: ValuationTest.mark(uint112,uint112,uint112,uint112)
+⇾ [PASSED] Assertion Test: ValuationTest.testFuzz_rounding(uint112,uint112,uint112,uint112)
+⇾ Test summary: 5 test(s) passed, 0 test(s) failed
+⇾ html report(s) saved to: crytic-export/coverage/coverage_report.html
+⇾ lcov report(s) saved to: crytic-export/coverage/lcov.info

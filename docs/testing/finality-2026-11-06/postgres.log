@@ -1,0 +1,10 @@
+waiting for server to start.... done
+server started
+{"block":"1","hash":"0xfcd884f0895af56685689cef3ee5985a4fe39114bd4174a2635e5ead257fc669","timestamp":"1793916486","reserve0":"2","reserve1":"3","finality":"unverified","completeWindow":false,"volume24h":null,"spotTvlToken0":"4","annualizedGrossFeeBps":null}
+{"orphan":"0xb604de30124f9b25ac12feef8a790abe39f895de662c2017865e7a892e0b0130","canonical":"0x61e15be28593234b68753c4f5d04c3c682a638c28917af3673f470a768a51cee","reserve0":"9"}
+Finalized-only request for live block: HTTP 409
+Crash restart preserves canonical snapshot and LP balances
+Smoke logs: /dev/shm/tmp.1Wgiukg28P
+waiting for server to shut down.... done
+server stopped
+PostgreSQL test evidence: /dev/shm/tmp.0J8Oo5jKIG

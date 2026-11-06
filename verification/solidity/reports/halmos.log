@@ -1,0 +1,49 @@
+Compiling 2 files with Solc 0.8.28
+Solc 0.8.28 finished in 263.72ms
+Compiler run successful!
+warning[boolean-cst]: misuse of a boolean constant
+   ╭▸ src/ValuationModel.sol:11:36
+   │
+11 │         if (reserve1 == 0) return (false, 0);
+   │                                    ━━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/boolean-cst
+
+note[mixed-case-function]: function names should use mixedCase
+   ╭▸ test/Valuation.t.sol:19:14
+   │
+19 │     function check_zeroDenominator(uint112 a, uint112 b, uint112 r0) public pure {
+   │              ━━━━━━━━━━━━━━━━━━━━━ help: consider using: `checkZeroDenominator`
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/mixed-case-function
+
+warning[boolean-cst]: misuse of a boolean constant
+   ╭▸ src/ValuationModel.sol:12:17
+   │
+12 │         return (true, uint256(amount0) + uint256(amount1) * reserve0 / reserve1);
+   │                 ━━━━
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/boolean-cst
+
+note[mixed-case-function]: function names should use mixedCase
+   ╭▸ test/Valuation.t.sol:24:14
+   │
+24 │     function check_zeroToken1(uint112 a, uint112 r0, uint112 r1) public pure {
+   │              ━━━━━━━━━━━━━━━━ help: consider using: `checkZeroToken1`
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/mixed-case-function
+
+note[mixed-case-function]: function names should use mixedCase
+   ╭▸ test/Valuation.t.sol:30:14
+   │
+30 │     function check_unitPrice(uint112 a, uint112 b) public pure {
+   │              ━━━━━━━━━━━━━━━ help: consider using: `checkUnitPrice`
+   │
+   ╰ help: https://getfoundry.sh/forge/linting/mixed-case-function
+
+
+Running 3 tests for test/Valuation.t.sol:ValuationTest
+[32m[PASS][0m check_unitPrice(uint112,uint112) (paths: 5, time: 0.03s, bounds: [])
+[32m[PASS][0m check_zeroDenominator(uint112,uint112,uint112) (paths: 4, time: 0.01s, bounds: [])
+[32m[PASS][0m check_zeroToken1(uint112,uint112,uint112) (paths: 5, time: 0.02s, bounds: [])
+Symbolic test result: 3 passed; 0 failed; time: 1.12s

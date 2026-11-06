@@ -1,0 +1,16 @@
+[13:23:53] Found 1 *.sol files in 0.12 s                           detect.py:729
+           Failed to load previous build artifacts               compiler.py:863
+WARNING  2026-11-06 13:23:58,233 wake.svm.svm: Failed to download     svm.py:316
+         solc list from                                                         
+         https://binaries.soliditylang.org/linux-amd64/list.json:               
+         <urlopen error _ssl.c:983: The handshake operation timed               
+         out>                                                                   
+WARNING  2026-11-06 13:23:58,760 wake.svm.svm: Failed to download     svm.py:333
+         solc list from                                                         
+         https://raw.githubusercontent.com/ethereum/solc-bin/gh-pages           
+         /linux-amd64/list.json: <urlopen error _ssl.c:983: The                 
+         handshake operation timed out>                                         
+[13:24:00] Compiled 1 files using 1 solc runs in 1.05 s         compiler.py:1249
+[13:24:01] Processed compilation results in 0.56 s              compiler.py:1502
+           Wrote build artifacts in 0.04 s                      compiler.py:1629
+No detections found

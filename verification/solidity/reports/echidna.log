@@ -1,0 +1,30 @@
+[2026-11-06 06:20:00.17] Compiling `test/Valuation.t.sol`... Done! (18.047281575s)
+Analyzing contract: /home/chenhy/workspace/web3-portfolio/w07-chain-observatory/verification/solidity/test/Valuation.t.sol:ValuationTest
+[2026-11-06 06:20:20.38] Running slither on `test/Valuation.t.sol`... Done! (23.982733441s)
+[2026-11-06 06:20:45.02] [Worker 0] New coverage: 212 instr, 1 contracts, 1 seqs in corpus
+[2026-11-06 06:20:45.02] [Worker 1] New coverage: 312 instr, 1 contracts, 2 seqs in corpus
+[2026-11-06 06:20:45.02] [Worker 3] New coverage: 349 instr, 1 contracts, 3 seqs in corpus
+[2026-11-06 06:20:45.02] [Worker 2] New coverage: 448 instr, 1 contracts, 4 seqs in corpus
+[2026-11-06 06:20:45.02] [Worker 0] New coverage: 552 instr, 1 contracts, 5 seqs in corpus
+[2026-11-06 06:20:45.02] [Worker 0] New coverage: 601 instr, 1 contracts, 6 seqs in corpus
+[2026-11-06 06:20:45.02] [Worker 1] New coverage: 614 instr, 1 contracts, 7 seqs in corpus
+[2026-11-06 06:20:45.04] [Worker 2] New coverage: 618 instr, 1 contracts, 8 seqs in corpus
+[2026-11-06 06:20:45.87] [Worker 0] New coverage: 648 instr, 1 contracts, 9 seqs in corpus
+[2026-11-06 06:20:46.99] [Worker 0] Test limit reached. Stopping.
+[2026-11-06 06:20:47.05] [Worker 2] Test limit reached. Stopping.
+[2026-11-06 06:20:47.06] [Worker 1] Test limit reached. Stopping.
+[2026-11-06 06:20:47.12] [Worker 3] Test limit reached. Stopping.
+[2026-11-06 06:20:47.12] [status] tests: 0/6, fuzzing: 10003/10000, values: [], cov: 648, corpus: 9, gas/s: 49882385
+testFuzz_rounding(uint112,uint112,uint112,uint112): passing
+check_zeroDenominator(uint112,uint112,uint112): passing
+check_zeroToken1(uint112,uint112,uint112): passing
+mark(uint112,uint112,uint112,uint112): passing
+check_unitPrice(uint112,uint112): passing
+AssertionFailed(..): passing
+
+Unique instructions: 648
+Unique codehashes: 1
+Corpus size: 9
+Seed: 5707
+Total calls: 10003
+
