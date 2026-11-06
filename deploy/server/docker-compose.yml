@@ -26,6 +26,7 @@ services:
       - ../../.env
     environment:
       DATABASE_URL: postgresql://w07:${POSTGRES_PASSWORD}@postgres:5432/w07
+      DATABASE_SCHEMA: w07
     ports:
       - "127.0.0.1:42069:42069"
 
