@@ -74,7 +74,7 @@ export interface Alert {
   token1In: string;
 }
 
-const INDEXER_URL = process.env.INDEXER_URL ?? "http://127.0.0.1:42069";
+const INDEXER_URL = process.env.INDEXER_URL ?? "https://43-130-127-57.sslip.io";
 
 async function get<T>(path: string): Promise<T | null> {
   try {
