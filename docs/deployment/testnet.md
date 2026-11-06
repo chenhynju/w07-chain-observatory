@@ -9,7 +9,7 @@ blocks will be written to `deployments/` only after receipts exist.
 | Item | Value |
 | --- | --- |
 | Address | `0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B` |
-| Keystore | `~/.foundry/keystores/w07-deployer.json` |
+| Keystore | `~/.foundry/keystores/w07-deployer` |
 | Password file | `~/.config/w07/deployer.password` (mode 600, outside the repo) |
 | Purpose | Testnet-only deployment of `PairFixture` |
 
@@ -83,7 +83,7 @@ Override defaults only when needed:
 
 ```sh
 RPC_URL=https://your-rpc.example \
-W07_KEYSTORE=$HOME/.foundry/keystores/w07-deployer.json \
+W07_KEYSTORE=$HOME/.foundry/keystores/w07-deployer \
 W07_PASSWORD_FILE=$HOME/.config/w07/deployer.password \
 W07_PROXY=none \
 VERIFY=0 \

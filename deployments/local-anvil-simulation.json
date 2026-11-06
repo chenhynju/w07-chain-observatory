@@ -1,0 +1,48 @@
+{
+  "network": "base-sepolia",
+  "chainId": 84532,
+  "status": "DEPLOYED",
+  "localSimulation": true,
+  "deployedAtUtc": "2026-11-06T20:27:49Z",
+  "deployer": "0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B",
+  "explorer": "https://base-sepolia.blockscout.com",
+  "fixture": {
+    "name": "PairFixture",
+    "role": "Test-only Uniswap V2-shaped event source; no token transfers and no value.",
+    "address": "0x6df609A29C4735180211CA64e1e83B9ac7A36fEC",
+    "transactionHash": "0x1ac8ba176d8de1faab0ab591e7f355e184b7b08ae97fc0b606d7aa8ca3351ba2",
+    "blockNumber": "1",
+    "gasUsed": "1724218",
+    "constructorArgs": []
+  },
+  "events": [
+    {
+      "step": "mint",
+      "function": "mint(uint256,uint256,address)",
+      "transactionHash": "0x589a3f74e37e822aadbc51a36b5f7187821f90efc1403bc135883edceb711ac0",
+      "blockNumber": "2",
+      "gasUsed": "96889"
+    },
+    {
+      "step": "swapWithPostSync",
+      "function": "swapWithPostSync(uint256,uint256,uint256,address)",
+      "transactionHash": "0xf4753f10a63895b0cfaaf536a07617d68a27c83211bed69084e105da7d1e8aa4",
+      "blockNumber": "3",
+      "gasUsed": "37851"
+    }
+  ],
+  "indexer": {
+    "W07_CHAIN": "base-sepolia",
+    "PAIR_ADDRESS": "0x6df609A29C4735180211CA64e1e83B9ac7A36fEC",
+    "START_BLOCK": "1",
+    "PAIR_CREATION_BLOCK": "1",
+    "latestSyncBlock": "3"
+  },
+  "sourceVerification": "NOT_APPLICABLE_LOCAL_SIMULATION",
+  "limitations": [
+    "PairFixture is test infrastructure, not a production AMM.",
+    "Events are synthetic and do not represent real trading activity.",
+    "The deployer keystore stays outside the repository.",
+    "Local Anvil simulation; no public explorer record."
+  ]
+}

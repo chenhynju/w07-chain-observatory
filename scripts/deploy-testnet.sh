@@ -23,9 +23,11 @@ case "$profile" in
 esac
 
 RPC_URL=${RPC_URL:-$default_rpc}
-KEYSTORE=${W07_KEYSTORE:-$HOME/.foundry/keystores/w07-deployer.json}
+KEYSTORE=${W07_KEYSTORE:-$HOME/.foundry/keystores/w07-deployer}
 PASSWORD_FILE=${W07_PASSWORD_FILE:-$HOME/.config/w07/deployer.password}
 PROXY=${W07_PROXY:-http://127.0.0.1:8899}
+RECORD_NAME=${W07_DEPLOY_RECORD:-$profile}
+LOCAL_SIMULATION=${W07_LOCAL_SIMULATION:-false}
 if [[ "$PROXY" != "none" ]]; then
   export https_proxy="$PROXY"
   export http_proxy="$PROXY"
@@ -41,7 +43,11 @@ if [[ "$chain_id" != "$expected_chain" ]]; then
 fi
 
 password=$(cat "$PASSWORD_FILE")
-private_key=$(CAST_UNSAFE_PASSWORD="$password" cast wallet decrypt-keystore --keystore-dir "$(dirname "$KEYSTORE")" "$(basename "$KEYSTORE" .json)")
+private_key=$(CAST_UNSAFE_PASSWORD="$password" cast wallet decrypt-keystore --keystore-dir "$(dirname "$KEYSTORE")" "$(basename "$KEYSTORE" .json)" | grep -Eo '0x[0-9a-fA-F]{64}' | tail -1)
+if [[ -z "$private_key" ]]; then
+  echo "Could not decrypt the keystore" >&2
+  exit 2
+fi
 deployer=$(cast wallet address --private-key "$private_key")
 unset private_key password
 balance=$(cast balance "$deployer" --rpc-url "$RPC_URL" --ether)
@@ -55,7 +61,7 @@ if [[ "$(cast balance "$deployer" --rpc-url "$RPC_URL")" == "0" ]]; then
   exit 3
 fi
 
-log_dir="evidence/deploy-$profile-$(date -u +%Y%m%dT%H%M%SZ)"
+log_dir="evidence/deploy-$RECORD_NAME-$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p "$log_dir" deployments
 
 (cd testnet/fixtures && forge build --silent >/dev/null)
@@ -110,11 +116,12 @@ read -r mint_step mint_tx mint_block mint_gas <<<"$mint_line"
 read -r swap_step swap_tx swap_block swap_gas <<<"$swap_line"
 latest_block=$swap_block
 
-cat > "deployments/$profile.json" <<EOF
+cat > "deployments/$RECORD_NAME.json" <<EOF
 {
   "network": "$profile",
   "chainId": $chain_id,
   "status": "DEPLOYED",
+  "localSimulation": $LOCAL_SIMULATION,
   "deployedAtUtc": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
   "deployer": "$deployer",
   "explorer": "$explorer",
@@ -150,11 +157,12 @@ cat > "deployments/$profile.json" <<EOF
     "PAIR_CREATION_BLOCK": "$deploy_block",
     "latestSyncBlock": "$latest_block"
   },
-  "sourceVerification": "PENDING",
+  "sourceVerification": $([ "$LOCAL_SIMULATION" = "true" ] && echo '"NOT_APPLICABLE_LOCAL_SIMULATION"' || echo '"PENDING"'),
   "limitations": [
     "PairFixture is test infrastructure, not a production AMM.",
     "Events are synthetic and do not represent real trading activity.",
-    "The deployer keystore stays outside the repository."
+    "The deployer keystore stays outside the repository.",
+    $([ "$LOCAL_SIMULATION" = "true" ] && echo '"Local Anvil simulation; no public explorer record."' || echo '"Public testnet record; verify the explorer entry before relying on it."')
   ]
 }
 EOF
@@ -173,7 +181,7 @@ if [[ "${VERIFY:-1}" == "1" ]]; then
       const record = JSON.parse(fs.readFileSync(file, "utf8"));
       record.sourceVerification = "VERIFIED_BLOCKSCOUT";
       fs.writeFileSync(file, JSON.stringify(record, null, 2) + "\n");
-    ' "deployments/$profile.json"
+    ' "deployments/$RECORD_NAME.json"
     echo "source verification: PASS (Blockscout)"
   else
     echo "source verification: FAILED (see $log_dir/verify.log)" >&2
@@ -181,7 +189,7 @@ if [[ "${VERIFY:-1}" == "1" ]]; then
 fi
 
 echo
-echo "Deployment record: deployments/$profile.json"
+echo "Deployment record: deployments/$RECORD_NAME.json"
 echo "Evidence:          $log_dir"
 echo "Indexer environment:"
 echo "  W07_CHAIN=$profile"
