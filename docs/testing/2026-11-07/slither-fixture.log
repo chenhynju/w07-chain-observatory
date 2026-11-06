@@ -1,0 +1,4 @@
+'forge clean' running (wd: /home/chenhy/workspace/web3-portfolio/w07-chain-observatory/testnet/fixtures)
+'forge config --json' running
+'forge build --build-info --deny never --skip ./test/** ./script/** --force' running (wd: /home/chenhy/workspace/web3-portfolio/w07-chain-observatory/testnet/fixtures)
+INFO:Slither:. analyzed (1 contracts with 102 detectors), 0 result(s) found

@@ -3,4 +3,7 @@
 !.env.example
 node_modules/
 .ponder/
-
+.runtime/
+apps/web/.next/
+.tmp_*
+*.tsbuildinfo

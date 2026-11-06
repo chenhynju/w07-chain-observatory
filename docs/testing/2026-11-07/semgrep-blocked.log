@@ -1,0 +1,16 @@
+Semgrep availability probe — 2026-11-07
+
+Command:
+  timeout 45 semgrep --version
+
+Result:
+  The command produced no output before the 45-second deadline and was terminated.
+  No scan was executed for the current commit.
+
+Prior evidence:
+  docs/testing/finality-2026-11-06/semgrep.log records 74 TypeScript rules over 7 files
+  with 0 findings for the 2026-11-06 code. That result does not apply to the current
+  changes and is not reused as a current finding count.
+
+Classification:
+  BLOCKED — tool startup, not a code finding.

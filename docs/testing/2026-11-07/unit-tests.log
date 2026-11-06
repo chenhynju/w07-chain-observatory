@@ -1,0 +1,25 @@
+
+> test
+> node --test test/*.test.ts
+
+✔ chain resolution defaults to the Ethereum USDC/WETH pair (8.309323ms)
+✔ chain resolution accepts a testnet profile and explicit indexing window (2.063256ms)
+✔ chain resolution rejects unsupported names, missing pair and malformed heights (6.218861ms)
+✔ height, finality, wallet and token amount validation reject ambiguous input (1.045132ms)
+✔ coverage is complete only when indexing starts at or before pair creation (9.721333ms)
+✔ fixed-window rate limiter denies the request after the configured budget (4.043903ms)
+✔ response timeout resolves fast work and rejects work beyond the deadline (42.582913ms)
+✔ finality verification over HTTP fails closed across RPC branches (538.166488ms)
+✔ lag probe fails when the checkpoint is stale or ahead of the RPC (2322.781475ms)
+✔ 10,000 deterministic integer valuations satisfy rounding and monotonicity (160.456082ms)
+✔ keeps amounts above JS safe integer exact (3.159637ms)
+✔ rounds down and signals missing denominator (0.875531ms)
+✔ counts both input legs (8.97347ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5354.866126

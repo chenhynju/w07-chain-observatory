@@ -1,0 +1,8 @@
+
+> web:check
+> npm --prefix apps/web run check
+
+
+> check
+> tsc --noEmit
+

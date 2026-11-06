@@ -1,0 +1,44 @@
+
+> coverage
+> node --test --experimental-test-coverage --test-coverage-lines=85 --test-coverage-functions=85 --test-coverage-branches=75 test/*.test.ts
+
+✔ chain resolution defaults to the Ethereum USDC/WETH pair (11.853458ms)
+✔ chain resolution accepts a testnet profile and explicit indexing window (1.892709ms)
+✔ chain resolution rejects unsupported names, missing pair and malformed heights (8.129617ms)
+✔ height, finality, wallet and token amount validation reject ambiguous input (2.619852ms)
+✔ coverage is complete only when indexing starts at or before pair creation (3.318054ms)
+✔ fixed-window rate limiter denies the request after the configured budget (1.278639ms)
+✔ response timeout resolves fast work and rejects work beyond the deadline (62.103611ms)
+✔ finality verification over HTTP fails closed across RPC branches (1018.174895ms)
+✔ lag probe fails when the checkpoint is stale or ahead of the RPC (2646.253566ms)
+✔ 10,000 deterministic integer valuations satisfy rounding and monotonicity (174.776536ms)
+✔ keeps amounts above JS safe integer exact (14.80608ms)
+✔ rounds down and signals missing denominator (0.545069ms)
+✔ counts both input legs (3.772104ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5242.919234
+ℹ start of coverage report
+ℹ ----------------------------------------------------------------
+ℹ file            | line % | branch % | funcs % | uncovered lines
+ℹ ----------------------------------------------------------------
+ℹ scripts         |        |          |         | 
+ℹ  lag.mjs        |  85.71 |    28.57 |  100.00 | 5-6 24-25
+ℹ src             |        |          |         | 
+ℹ  api            |        |          |         | 
+ℹ   coverage.ts   | 100.00 |   100.00 |  100.00 | 
+ℹ   rate-limit.ts |  92.73 |    75.00 |  100.00 | 28-31
+ℹ   timeout.ts    | 100.00 |   100.00 |  100.00 | 
+ℹ   validation.ts | 100.00 |   100.00 |  100.00 | 
+ℹ  chain.ts       | 100.00 |    95.24 |  100.00 | 
+ℹ  finality.ts    | 100.00 |    85.00 |  100.00 | 
+ℹ  math.ts        | 100.00 |   100.00 |  100.00 | 
+ℹ ----------------------------------------------------------------
+ℹ all files       |  97.19 |    86.96 |  100.00 | 
+ℹ ----------------------------------------------------------------
+ℹ end of coverage report

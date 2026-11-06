@@ -1,0 +1,24 @@
+
+> smoke:postgres
+> bash scripts/smoke-postgres.sh
+
+waiting for server to start.... done
+server started
+{"block":"1","hash":"0x0486ea9be06d65846f607e48ba5095c4d0f16f58bb174e54688dccf1f83e12c2","reserve0":"2"}
+metadata ok
+{"block":"2","hash":"0x8d3dc2caaf2b9828125eb86d37a7ea355efdb3b2d3a74e7895bd27f66c267133","volume0":"2"}
+{"holder":{"wallet":"0x0000000000000000000000000000000000000011","balance":"5"}}
+wallet transfer history ok
+large input alert feed ok
+latest snapshot ok
+sync series ok
+Finalized-only request for live block: HTTP 409
+{"block":"2","hash":"0xf922b1f25a567e0581852f8e1a06a9190f3219b2c8281d9d5b67a7e2e91b3454","reserve0":"20"}
+{"orphan":"0x8d3dc2caaf2b9828125eb86d37a7ea355efdb3b2d3a74e7895bd27f66c267133","canonical":"0xf922b1f25a567e0581852f8e1a06a9190f3219b2c8281d9d5b67a7e2e91b3454"}
+LP balance rollback and replay ok
+latest snapshot after reorg ok
+Crash restart preserves canonical snapshot and LP balances
+Smoke logs: /dev/shm/tmp.VR5edUndtW
+waiting for server to shut down.... done
+server stopped
+PostgreSQL test evidence: /dev/shm/tmp.WArzNxxU3r

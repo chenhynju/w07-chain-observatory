@@ -1,0 +1,19 @@
+
+> smoke
+> bash scripts/smoke-anvil.sh
+
+{"block":"1","hash":"0xe5a9deb8fcafa614abd0ea4598c8952368ee0b98f5ada2277803373737b87c3e","reserve0":"2"}
+metadata ok
+{"block":"2","hash":"0xec3d1aad48137a237f0b5a7946cdc8889f48a82e818b0983a652fc028562fa56","volume0":"2"}
+{"holder":{"wallet":"0x0000000000000000000000000000000000000011","balance":"5"}}
+wallet transfer history ok
+large input alert feed ok
+latest snapshot ok
+sync series ok
+Finalized-only request for live block: HTTP 409
+{"block":"2","hash":"0x96adc06216bc5179401ba093441608d4595aea887faaa8f9e5f092ad427b9a8d","reserve0":"20"}
+{"orphan":"0xec3d1aad48137a237f0b5a7946cdc8889f48a82e818b0983a652fc028562fa56","canonical":"0x96adc06216bc5179401ba093441608d4595aea887faaa8f9e5f092ad427b9a8d"}
+LP balance rollback and replay ok
+latest snapshot after reorg ok
+Crash restart preserves canonical snapshot and LP balances
+Smoke logs: /dev/shm/tmp.82WdVfWPJc

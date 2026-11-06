@@ -6,7 +6,21 @@
     "dev": "ponder dev",
     "start": "ponder start",
     "check": "tsc --noEmit",
-    "test": "node --test test/*.test.ts"
+    "test": "node --test test/*.test.ts",
+    "coverage": "node --test --experimental-test-coverage --test-coverage-lines=85 --test-coverage-functions=85 --test-coverage-branches=75 test/*.test.ts",
+    "smoke": "bash scripts/smoke-anvil.sh",
+    "smoke:postgres": "bash scripts/smoke-postgres.sh",
+    "fixture:build": "cd testnet/fixtures && forge build",
+    "fixture:test": "cd testnet/fixtures && forge test",
+    "dev:demo": "bash scripts/dev-demo.sh",
+    "stop:demo": "bash scripts/stop-demo.sh",
+    "deploy:testnet": "bash scripts/deploy-testnet.sh",
+    "web:dev": "npm --prefix apps/web run dev",
+    "web:build": "npm --prefix apps/web run build",
+    "web:check": "npm --prefix apps/web run check"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   },
   "dependencies": {
     "hono": "4.13.16",

@@ -30,6 +30,42 @@ LP holdings should sum Transfer credits minus debits from pair creation, excludi
 
 Trace two swaps in one block. Explain why the last Sync determines end-of-block reserves but neither Swap can be discarded. Then replace that block and verify why both the reserve row and both volume contributions must roll back together. Compare raw token amounts using integer arithmetic before formatting decimals.
 
+## API surface
+
+- `GET /metadata` — chain id, pair, indexing window, coverage, limits and finality mode.
+- `GET /latest` — latest indexed Sync snapshot with the same payload as `/snapshot`.
+- `GET /snapshot/:height` — last Sync at that height; optional `?finality=finalized`.
+- `GET /series?from=&to=&limit=` — bounded Sync series for charting (1–500 points).
+- `GET /wallet/:address` — latest 50 LP Transfer events for one address.
+- `GET /alerts?minToken0=&height=` — up to 25 swaps in the preceding 7,200 blocks.
+- `GET /lp-holders` — top 25 positive projected LP balances with explicit coverage.
+- `GET /` — legacy inline preview; the Next.js dashboard lives in `apps/web`.
+
+All responses carry `Cache-Control: no-store`, security headers and the chain/pair identity.
+The API applies a per-process fixed-window rate limit and a response deadline around each
+database query. Invalid heights, finality modes, addresses, thresholds and series bounds
+return 400; a missing Sync returns 404; an unavailable or pending finality check fails closed.
+
+## Same-block boundary
+
+A snapshot is anchored to the **last Sync log** at the requested height. For the 24-hour
+volume query, swaps are included only when:
+
+```text
+swap.block < sync.block
+OR (swap.block = sync.block AND swap.log <= sync.log)
+```
+
+This prevents a swap after the defining Sync in the same block from entering the window.
+The `PairFixture` emits Swap → Sync → post-Sync Swap in one transaction, and the integration
+smoke test asserts that only the pre-Sync input is counted.
+
 ## Current implementation limits
 
-The preview has a browser dashboard, latest LP transfer history, and a threshold-based token0 swap feed. The current LP holder endpoint returns the top 25 positive projected balances. Alert dispatch remains open. The reserve reconciliation command compares canonical block-hash state, with a live RPC run pending. Snapshot reserves and volume are read in one SQL statement. End-to-end reorganization verification and an explicit readiness checkpoint guard remain open.
+The Next.js dashboard reads `/metadata`, `/latest`, `/series`, `/lp-holders` and `/alerts`
+server-side. The legacy inline page remains available at `/`. LP balances remain incomplete
+unless indexing starts at pair creation; the API discloses this through `coverage` and
+`coverageDetail` instead of silently ranking partial data. Alert dispatch, multi-RPC finality
+quorum, historical log-completeness proof and shared rate limiting remain open. The testnet
+event source is a test-only `PairFixture`; it is not a production market.
+
