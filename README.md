@@ -9,6 +9,11 @@ specific block hash and Sync log, exposes a guarded HTTP API, and ships a Next.j
 This is a portfolio project. The testnet data source is a clearly labeled `PairFixture`
 contract, not a production AMM.
 
+![W07 Chain Observatory dashboard](docs/testing/2026-11-07/dashboard-viewport.png)
+
+*Local demo with seeded fixture events: reserves, 24-hour volume, coverage and finality are
+all explicit.*
+
 ## Business problem
 
 A node can answer `eth_getLogs`, but an analytics product must answer harder questions:
