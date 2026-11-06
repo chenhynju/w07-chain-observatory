@@ -168,6 +168,7 @@ No placeholder addresses or transactions are committed.
 ```sh
 # Dependencies
 npm ci
+npm --prefix apps/web ci
 
 # Native local demo: Anvil + fixture events + Ponder API on :42069
 npm run dev:demo
