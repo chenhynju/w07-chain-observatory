@@ -1,0 +1,9 @@
+w07-api.purelamp.uk {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:42069
+}
+
+43-130-127-57.sslip.io {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:42069
+}
