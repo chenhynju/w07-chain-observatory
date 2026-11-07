@@ -10,7 +10,7 @@ Status: **LIVE**.
 | Source | Private repo `chenhynju/w07-chain-observatory` |
 | Root Directory | `apps/web` |
 | Framework | Next.js 15 (detected) |
-| API source | `https://43-130-127-57.sslip.io` (code default, overridable by `INDEXER_URL`) |
+| API source | `https://onchaindata.purelamp.uk` (code default, overridable by `INDEXER_URL`) |
 | Trigger | GitHub integration: push to `main` deploys automatically |
 
 ## Verification
@@ -20,11 +20,15 @@ contained the hero `Reserve truth at a specific block.` and the metric cards `Sp
 `24h input`, `Gross fee APR` and `Indexed LP holders`. It did not contain the
 `Indexer is offline` state, so the server-side fetch reached the cloud indexer.
 
+After commit `4fbbbf7` the dashboard reads the Base Sepolia fixture: the HTML contains chain id
+`84532` and pair `0x3d47126774E5B1E10d4Bf2093A52A1F0b2C6044F`, and no longer contains the
+Ethereum mainnet pair. The screenshot above was captured after this switch.
+
 ## Pending
 
 - Custom domain `w07.purelamp.uk`: add it in the Vercel project and point Cloudflare DNS at
   Vercel. The apex `purelamp.uk` already resolves to Vercel; the API subdomain is separate.
-- After `w07-api.purelamp.uk` has an A record to `43.130.127.57`, the API URL can be switched
-  from the `sslip.io` hostname to the branded hostname.
+- `w07-api.purelamp.uk` has a Caddy site block but no DNS record; `onchaindata.purelamp.uk` is
+  the active branded API host.
 - The Vercel project is private-repo backed; reviewers need repository access or a public
   deployment URL.

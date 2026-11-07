@@ -176,7 +176,8 @@ must serve old blocks. `sepolia.base.org` prunes before block 46,500,000; the Te
 gateway is used instead.
 
 Deployment records are written to [deployments](deployments) only after real receipts exist.
-No placeholder addresses or transactions are committed.
+No placeholder addresses or transactions are committed. The end-to-end record is in
+[testnet-verification-2026-11-07.md](docs/deployment/testnet-verification-2026-11-07.md).
 
 ## Live API
 
