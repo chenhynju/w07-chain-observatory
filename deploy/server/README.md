@@ -56,3 +56,19 @@ PAIR_CREATION_BLOCK=<deployment block>
 Then `docker compose --env-file .env -f deploy/server/docker-compose.yml up -d --build`.
 Use a fresh PostgreSQL volume or a different database name when changing the
 pair/profile; one schema holds one pair.
+
+## Running both testnet fixtures side by side
+
+`docker-compose.yml` contains a second service, `indexer-eth`, that indexes the
+Ethereum Sepolia fixture from `deployments/ethereum-sepolia.json` on port 42070
+with its own database (`w07_eth`). Create the database once, then start it:
+
+```sh
+docker exec server-postgres-1 psql -U w07 -d w07 -c "CREATE DATABASE w07_eth OWNER w07"
+docker compose --env-file .env -f deploy/server/docker-compose.yml up -d --build indexer-eth
+curl -sS http://127.0.0.1:42070/metadata | jq
+```
+
+Caddy exposes it under `https://onchaindata.purelamp.uk/eth/*` (prefix stripped)
+so no extra DNS record is required. A dedicated hostname
+(`ethdata.purelamp.uk`) only needs a Caddy site block after its A record exists.

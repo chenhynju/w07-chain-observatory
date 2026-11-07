@@ -3,6 +3,16 @@ w07-api.purelamp.uk {
     reverse_proxy 127.0.0.1:42069
 }
 
+onchaindata.purelamp.uk {
+    encode zstd gzip
+    handle_path /eth/* {
+        reverse_proxy 127.0.0.1:42070
+    }
+    handle {
+        reverse_proxy 127.0.0.1:42069
+    }
+}
+
 43-130-127-57.sslip.io {
     encode zstd gzip
     reverse_proxy 127.0.0.1:42069

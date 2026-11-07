@@ -181,20 +181,23 @@ No placeholder addresses or transactions are committed. The end-to-end record is
 
 ## Live API
 
-A read-only indexer is running on a Tencent Cloud server and indexes the Base Sepolia
-`PairFixture`:
+A read-only indexer is running on a Tencent Cloud server. Two isolated instances index the
+Base Sepolia and Ethereum Sepolia `PairFixture` deployments:
 
 ```text
 Dashboard: https://w07-chain-observatory.vercel.app
-API:       https://onchaindata.purelamp.uk/metadata
+API:       https://onchaindata.purelamp.uk/metadata          # Base Sepolia, chain id 84532
            https://onchaindata.purelamp.uk/latest
            https://onchaindata.purelamp.uk/series?from=55659119&to=<latest>
+           https://onchaindata.purelamp.uk/eth/metadata      # Ethereum Sepolia, chain id 11155111
+           https://onchaindata.purelamp.uk/eth/latest
 ```
 
-Coverage is complete for the fixture (`START_BLOCK` equals its creation block). The 24-hour
-volume and fee APR stay `null` until the fixture window spans 24 hours. `w07-api.purelamp.uk`
-is also configured in Caddy and becomes active once its DNS record is added.
-See [docs/deployment/server-live.md](docs/deployment/server-live.md) and
+Each instance has its own database, so the two chain windows cannot overwrite each other's sync
+state. Coverage is complete for both fixtures (`START_BLOCK` equals each creation block). The
+24-hour volume and fee APR stay `null` until a fixture window spans 24 hours.
+`w07-api.purelamp.uk` is also configured in Caddy and becomes active once its DNS record is
+added. See [docs/deployment/server-live.md](docs/deployment/server-live.md) and
 [docs/deployment/vercel-live.md](docs/deployment/vercel-live.md).
 
 ## Quick start

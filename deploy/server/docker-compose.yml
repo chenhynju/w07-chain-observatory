@@ -30,5 +30,30 @@ services:
     ports:
       - "127.0.0.1:42069:42069"
 
+  # Second, isolated indexer for the Ethereum Sepolia fixture.
+  # Requires the w07_eth database to exist in the same PostgreSQL instance:
+  #   docker exec server-postgres-1 psql -U w07 -d w07 -c "CREATE DATABASE w07_eth OWNER w07"
+  indexer-eth:
+    build:
+      context: ../..
+      dockerfile: deploy/server/Dockerfile
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://w07:${POSTGRES_PASSWORD}@postgres:5432/w07_eth
+      DATABASE_SCHEMA: w07_eth
+      # Ethereum Sepolia fixture, see deployments/ethereum-sepolia.json.
+      W07_CHAIN: ethereum-sepolia
+      RPC_URL: https://ethereum-sepolia-rpc.publicnode.com
+      PAIR_ADDRESS: "0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999"
+      START_BLOCK: "12083600"
+      PAIR_CREATION_BLOCK: "12083600"
+      RATE_LIMIT_PER_MINUTE: "120"
+      REQUEST_TIMEOUT_MS: "5000"
+    ports:
+      - "127.0.0.1:42070:42069"
+
 volumes:
   w07_pgdata:
