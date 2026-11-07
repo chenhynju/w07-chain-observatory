@@ -173,15 +173,17 @@ No placeholder addresses or transactions are committed.
 A read-only indexer is running on a Tencent Cloud server:
 
 ```text
-https://43-130-127-57.sslip.io/metadata
-https://43-130-127-57.sslip.io/latest
-https://43-130-127-57.sslip.io/series?from=26350904&to=<latest>
+Dashboard: https://w07-chain-observatory.vercel.app
+API:       https://43-130-127-57.sslip.io/metadata
+           https://43-130-127-57.sslip.io/latest
+           https://43-130-127-57.sslip.io/series?from=26350904&to=<latest>
 ```
 
 It currently indexes a recent window of Ethereum mainnet USDC/WETH data. Coverage is partial
 and explicitly labeled; this is not a full-history claim. The `purelamp.uk` hostname
 `w07-api.purelamp.uk` is configured in Caddy and becomes active after its DNS record is added.
-See [docs/deployment/server-live.md](docs/deployment/server-live.md).
+See [docs/deployment/server-live.md](docs/deployment/server-live.md) and
+[docs/deployment/vercel-live.md](docs/deployment/vercel-live.md).
 
 ## Quick start
 
