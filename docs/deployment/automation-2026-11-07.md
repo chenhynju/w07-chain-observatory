@@ -4,15 +4,32 @@ Run window: `2026-11-07T00:00Z` – `2026-11-07T00:05Z`
 Repository HEAD: `19bfc15c7bd5d32905d048f7d74c40fa7a307f72`
 Working tree at start: clean (no staged or unstaged changes)
 
-Summary: **2 PASS, 2 BLOCKED**. No transaction was broadcast, no deployment record was
-written, and no test or deployment result is claimed without a real response.
+Summary: **2 PASS, 2 BLOCKED** at the 08:00 run. Vercel was unblocked later the same day
+via the embedded browser; see the post-run update below.
 
-| Step | Result |
+| Step | Result at run time |
 | --- | --- |
 | 1. GitHub repository and push | PASS |
 | 2. Server indexer availability and payloads | PASS |
-| 3. Vercel production deployment | BLOCKED |
+| 3. Vercel production deployment | BLOCKED, later deployed |
 | 4. Testnet fixture deployment | BLOCKED (zero deployer balance) |
+
+## Post-run update — Vercel is now live
+
+After this run, the private repository was imported into Vercel with Root Directory
+`apps/web`. The production URL is now:
+
+```
+https://w07-chain-observatory.vercel.app
+```
+
+It returned HTTP 200 and rendered the hero, metric cards, reserve chart and LP holders table
+with live data. The deployment is recorded in [vercel-live.md](vercel-live.md). The GitHub
+integration now deploys every push to `main`.
+
+The Cloudflare A record `w07-api` -> `43.130.127.57` is still pending, so
+`https://43-130-127-57.sslip.io` remains the API URL. The testnet funding blocker is unchanged:
+no transaction has been signed or broadcast.
 
 ## 1. GitHub
 
