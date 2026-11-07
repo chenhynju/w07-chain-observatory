@@ -2,6 +2,8 @@
 
 Status: **LIVE**.
 
+![Live Vercel dashboard](vercel-dashboard.png)
+
 | Item | Value |
 | --- | --- |
 | Production URL | `https://w07-chain-observatory.vercel.app` |
