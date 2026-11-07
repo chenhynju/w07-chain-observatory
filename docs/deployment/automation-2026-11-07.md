@@ -31,6 +31,24 @@ The Cloudflare A record `w07-api` -> `43.130.127.57` is still pending, so
 `https://43-130-127-57.sslip.io` remains the API URL. The testnet funding blocker is unchanged:
 no transaction has been signed or broadcast.
 
+## Post-run update — testnet deployed, server switched
+
+The funding blocker was resolved by using the already-funded legacy wallet
+`0x0118e172324801a6333e7d0fAF7f9BB4ED72628F` instead of `0xA675...2d1B`. Two fixtures were
+deployed and both emitted `mint` and `swapWithPostSync`:
+
+| Network | PairFixture | Block | Gas | Source |
+| --- | --- | --- | --- | --- |
+| Base Sepolia | `0x3d47126774E5B1E10d4Bf2093A52A1F0b2C6044F` | 55659119 | 1,042,673 | Sourcify `exact_match` |
+| Ethereum Sepolia | `0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999` | 12083600 | 7,289,537 | Sourcify `exact_match` |
+
+Blockscout accepted both submissions but returned `Fail - Unable to verify`; the deployed
+runtime bytecode is byte-identical to the local artifact, so this is recorded as a Blockscout
+limitation. The server indexer was switched to the Base Sepolia fixture with
+`RPC_URL=https://base-sepolia.gateway.tenderly.co`, and the API is now served at
+`https://onchaindata.purelamp.uk` (Cloudflare A record added; `w07-api` remains unconfigured).
+Details: [testnet.md](testnet.md), [server-live.md](server-live.md).
+
 ## 1. GitHub
 
 `gh` is authenticated in WSL as `chenhynju` with scopes `gist`, `read:org`, `repo`, `workflow`.

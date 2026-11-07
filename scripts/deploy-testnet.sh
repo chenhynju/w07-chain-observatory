@@ -67,12 +67,12 @@ if [[ "$(cast balance "$deployer" --rpc-url "$RPC_URL")" == "0" ]]; then
   exit 3
 fi
 
-log_dir="evidence/deploy-$RECORD_NAME-$(date -u +%Y%m%dT%H%M%SZ)"
+log_dir="$PWD/evidence/deploy-$RECORD_NAME-$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p "$log_dir" deployments
 
 (cd testnet/fixtures && forge build --silent >/dev/null)
 
-create_json=$(forge create testnet/fixtures/src/PairFixture.sol:PairFixture \
+create_json=$(cd testnet/fixtures && forge create src/PairFixture.sol:PairFixture \
   --rpc-url "$RPC_URL" --keystore "$KEYSTORE" --password-file "$PASSWORD_FILE" \
   --broadcast --json 2>"$log_dir/forge-create.err")
 printf '%s\n' "$create_json" > "$log_dir/forge-create.json"
@@ -175,22 +175,37 @@ EOF
 
 if [[ "${VERIFY:-1}" == "1" ]]; then
   set +e
-  forge verify-contract "$pair" testnet/fixtures/src/PairFixture.sol:PairFixture \
-    --chain "$verify_chain" --verifier blockscout --verifier-url "$explorer/api" \
+  (cd testnet/fixtures && forge verify-contract "$pair" src/PairFixture.sol:PairFixture \
+    --chain "$verify_chain" --verifier blockscout --verifier-url "$explorer/api" --watch) \
     >"$log_dir/verify.log" 2>&1
   verify_exit=$?
   set -e
-  if [[ "$verify_exit" == "0" ]]; then
-    node -e '
+  verifier=""
+  if [[ "$verify_exit" == "0" ]] && grep -qiE 'successfully verified|exact_match' "$log_dir/verify.log"; then
+    verifier="VERIFIED_BLOCKSCOUT"
+  else
+    echo "Blockscout verification failed, trying Sourcify" >&2
+    set +e
+    (cd testnet/fixtures && forge verify-contract "$pair" src/PairFixture.sol:PairFixture \
+      --chain "$verify_chain" --verifier sourcify --verifier-url https://sourcify.dev/server/ --watch) \
+      >"$log_dir/verify-sourcify.log" 2>&1
+    sourcify_exit=$?
+    set -e
+    if [[ "$sourcify_exit" == "0" ]] && grep -qiE 'successfully verified|exact_match' "$log_dir/verify-sourcify.log"; then
+      verifier="VERIFIED_SOURCIFY"
+    fi
+  fi
+  if [[ -n "$verifier" ]]; then
+    VERIFIER="$verifier" node -e '
       const fs = require("node:fs");
       const file = process.argv[1];
       const record = JSON.parse(fs.readFileSync(file, "utf8"));
-      record.sourceVerification = "VERIFIED_BLOCKSCOUT";
+      record.sourceVerification = process.env.VERIFIER;
       fs.writeFileSync(file, JSON.stringify(record, null, 2) + "\n");
     ' "deployments/$RECORD_NAME.json"
-    echo "source verification: PASS (Blockscout)"
+    echo "source verification: PASS ($verifier)"
   else
-    echo "source verification: FAILED (see $log_dir/verify.log)" >&2
+    echo "source verification: FAILED (see $log_dir/verify.log, $log_dir/verify-sourcify.log)" >&2
   fi
 fi
 

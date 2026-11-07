@@ -1,0 +1,48 @@
+{
+  "network": "ethereum-sepolia",
+  "chainId": 11155111,
+  "status": "DEPLOYED",
+  "localSimulation": false,
+  "deployedAtUtc": "2026-11-07T12:15:52Z",
+  "deployer": "0x0118e172324801a6333e7d0fAF7f9BB4ED72628F",
+  "explorer": "https://eth-sepolia.blockscout.com",
+  "fixture": {
+    "name": "PairFixture",
+    "role": "Test-only Uniswap V2-shaped event source; no token transfers and no value.",
+    "address": "0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999",
+    "transactionHash": "0x5b67c56b5c6789ea6bc3b5e007f9e4171d8fa1a4314d7aca8692c5c9d2a0f05a",
+    "blockNumber": "12083600",
+    "gasUsed": "7289537",
+    "constructorArgs": []
+  },
+  "events": [
+    {
+      "step": "mint",
+      "function": "mint(uint256,uint256,address)",
+      "transactionHash": "0xe80e8e302dc9161995064b0896e67aa36b604dfaeb3ceeba38bb79e6887a891d",
+      "blockNumber": "12083601",
+      "gasUsed": "352906"
+    },
+    {
+      "step": "swapWithPostSync",
+      "function": "swapWithPostSync(uint256,uint256,uint256,address)",
+      "transactionHash": "0x8b87bfe7f616e01ed0947581992b2167fb8fddaff1c3babf1282b70f2c230877",
+      "blockNumber": "12083602",
+      "gasUsed": "36303"
+    }
+  ],
+  "indexer": {
+    "W07_CHAIN": "ethereum-sepolia",
+    "PAIR_ADDRESS": "0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999",
+    "START_BLOCK": "12083600",
+    "PAIR_CREATION_BLOCK": "12083600",
+    "latestSyncBlock": "12083602"
+  },
+  "sourceVerification": "VERIFIED_SOURCIFY",
+  "limitations": [
+    "PairFixture is test infrastructure, not a production AMM.",
+    "Events are synthetic and do not represent real trading activity.",
+    "The deployer keystore stays outside the repository.",
+    "Public testnet record; verify the explorer entry before relying on it."
+  ]
+}

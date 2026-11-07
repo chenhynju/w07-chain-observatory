@@ -1,24 +1,34 @@
 # Testnet deployment runbook
 
-Status: **AWAITING SIGNING ACCESS**. The project now targets the funded legacy deployer
-`0x0118...628F`, which already holds Base Sepolia and Ethereum Sepolia ETH. No faucet drip is
-required. The remaining prerequisite is a local encrypted keystore for that address; no
-testnet transaction has been broadcast by this project yet. Real addresses, hashes and blocks
-will be written to `deployments/` only after receipts exist.
+Status: **DEPLOYED** on Base Sepolia and Ethereum Sepolia on 2026-11-07. The deployer is the
+funded legacy wallet `0x0118...628F`; no faucet drip was required. Source verification passed
+on Sourcify with `exact_match`. Blockscout accepted the submissions but returned
+`Fail - Unable to verify`, while the on-chain runtime bytecode is byte-identical to
+`testnet/fixtures/out/PairFixture.sol/PairFixture.json`; the Blockscout outcome is recorded as a
+tool-side limitation, not as a verified check.
+
+## Deployments
+
+| Network | PairFixture | Deployment tx | Block | Gas | Source |
+| --- | --- | --- | --- | --- | --- |
+| Base Sepolia (84532) | `0x3d47126774E5B1E10d4Bf2093A52A1F0b2C6044F` | `0x5ef93f92db959be2146c34b71f12f34d4dc16fb53e8e99e8ab188f501200d692` | 55659119 | 1,042,673 | Sourcify `exact_match` |
+| Ethereum Sepolia (11155111) | `0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999` | `0x5b67c56b5c6789ea6bc3b5e007f9e4171d8fa1a4314d7aca8692c5c9d2a0f05a` | 12083600 | 7,289,537 | Sourcify `exact_match` |
+
+Machine-readable records: `deployments/base-sepolia.json`, `deployments/ethereum-sepolia.json`.
 
 ## Deployer
 
 | Item | Value |
 | --- | --- |
 | Address | `0x0118e172324801a6333e7d0fAF7f9BB4ED72628F` |
-| Base Sepolia balance | 0.007976 ETH (checked 2026-11-07) |
-| Ethereum Sepolia balance | 0.05 ETH (checked 2026-11-07) |
+| Base Sepolia balance | 0.007965 ETH (after deployment) |
+| Ethereum Sepolia balance | 0.049139 ETH (after deployment) |
 | Keystore | `~/.foundry/keystores/w07-legacy-deployer` |
 | Password file | `~/.config/w07/legacy-deployer.password` (mode 600, outside the repo) |
 | Purpose | Testnet-only deployment of `PairFixture` |
 
-The keystore and password file do not exist yet. Import the key locally (do not paste it into
-chat or a repository):
+The keystore is already imported and is not part of the repository. Re-import only on a new
+machine (never paste the key into chat or a tracked file):
 
 ```sh
 cast wallet import w07-legacy-deployer --keystore-dir ~/.foundry/keystores --interactive
@@ -94,7 +104,8 @@ The script:
    and a post-Sync swap.
 4. Writes `deployments/<network>.json` and receipt logs under
    `evidence/deploy-<network>-<timestamp>/`.
-5. Attempts Blockscout source verification (`VERIFY=0` disables it).
+5. Verifies source on Blockscout; if that fails it falls back to Sourcify, and records
+   `VERIFIED_*` only when the verifier reports success (`VERIFY=0` disables the step).
 
 Override defaults only when needed:
 
@@ -134,6 +145,11 @@ PAIR_CREATION_BLOCK=<deployment block> \
 DATABASE_URL=postgresql://$(id -un)@127.0.0.1:5433/w07_base_sepolia \
 npm start
 ```
+
+RPC note: Ponder probes a historical block while resolving its finalized boundary, and
+`sepolia.base.org` prunes history before block 46,500,000. Use an archive-capable endpoint for
+Base Sepolia indexing (this project uses `https://base-sepolia.gateway.tenderly.co`; the public
+gateway rate-limits but retries succeed).
 
 Run the dashboard in a second terminal:
 
@@ -194,6 +210,7 @@ The deployment script writes:
 - `evidence/deploy-<network>-<timestamp>/forge-create.json` — deployment output.
 - `.../<step>-receipt.json` — transaction receipts.
 - `.../verify.log` — Blockscout verification output.
+- `.../verify-sourcify.log` — Sourcify fallback output (when Blockscout fails).
 
 Also capture:
 

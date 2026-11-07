@@ -1,0 +1,7 @@
+Start verifying contract `0x450C689f0702Be8AF310A50D7fd6E009Abecb5D7` deployed on sepolia
+
+Verifying on blockscout...
+Error: Failed to get standard json input
+
+Context:
+- cannot resolve file at "/home/chenhy/workspace/web3-portfolio/w07-chain-observatory/testnet/fixtures/src/PairFixture.sol"

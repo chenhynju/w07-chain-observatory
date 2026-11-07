@@ -74,7 +74,7 @@ export interface Alert {
   token1In: string;
 }
 
-const INDEXER_URL = process.env.INDEXER_URL ?? "https://43-130-127-57.sslip.io";
+const INDEXER_URL = process.env.INDEXER_URL ?? "https://onchaindata.purelamp.uk";
 
 async function get<T>(path: string): Promise<T | null> {
   try {

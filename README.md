@@ -153,35 +153,46 @@ The deployable artifact is a **test-only** `PairFixture` that emits Uniswap V2-s
 It does not move tokens or hold value. See [docs/deployment/testnet.md](docs/deployment/testnet.md)
 for the wallet, faucet, deployment, indexing and reconciliation procedure.
 
+| Network | PairFixture | Block | Source |
+| --- | --- | --- | --- |
+| Base Sepolia | [`0x3d47…044F`](https://base-sepolia.blockscout.com/address/0x3d47126774E5B1E10d4Bf2093A52A1F0b2C6044F) | 55,659,119 | Sourcify `exact_match` |
+| Ethereum Sepolia | [`0x4A9c…4999`](https://eth-sepolia.blockscout.com/address/0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999) | 12,083,600 | Sourcify `exact_match` |
+
 ```sh
-# 1. Fund the deployer address printed by the runbook, then:
+# Redeploy (keystore and funded wallet already exist):
 W07_CHAIN=base-sepolia npm run deploy:testnet
-# 2. Point the indexer at the recorded address and block:
+W07_CHAIN=ethereum-sepolia npm run deploy:testnet
+# Point the indexer at the recorded address and block:
 W07_CHAIN=base-sepolia \
-RPC_URL=https://sepolia.base.org \
+RPC_URL=https://base-sepolia.gateway.tenderly.co \
 PAIR_ADDRESS=<recorded> \
 START_BLOCK=<block> \
 PAIR_CREATION_BLOCK=<block> \
 npm start
 ```
 
+Ponder resolves its finalized boundary with a historical block probe, so the Base Sepolia RPC
+must serve old blocks. `sepolia.base.org` prunes before block 46,500,000; the Tenderly public
+gateway is used instead.
+
 Deployment records are written to [deployments](deployments) only after real receipts exist.
 No placeholder addresses or transactions are committed.
 
-## Live API (preliminary)
+## Live API
 
-A read-only indexer is running on a Tencent Cloud server:
+A read-only indexer is running on a Tencent Cloud server and indexes the Base Sepolia
+`PairFixture`:
 
 ```text
 Dashboard: https://w07-chain-observatory.vercel.app
-API:       https://43-130-127-57.sslip.io/metadata
-           https://43-130-127-57.sslip.io/latest
-           https://43-130-127-57.sslip.io/series?from=26350904&to=<latest>
+API:       https://onchaindata.purelamp.uk/metadata
+           https://onchaindata.purelamp.uk/latest
+           https://onchaindata.purelamp.uk/series?from=55659119&to=<latest>
 ```
 
-It currently indexes a recent window of Ethereum mainnet USDC/WETH data. Coverage is partial
-and explicitly labeled; this is not a full-history claim. The `purelamp.uk` hostname
-`w07-api.purelamp.uk` is configured in Caddy and becomes active after its DNS record is added.
+Coverage is complete for the fixture (`START_BLOCK` equals its creation block). The 24-hour
+volume and fee APR stay `null` until the fixture window spans 24 hours. `w07-api.purelamp.uk`
+is also configured in Caddy and becomes active once its DNS record is added.
 See [docs/deployment/server-live.md](docs/deployment/server-live.md) and
 [docs/deployment/vercel-live.md](docs/deployment/vercel-live.md).
 
