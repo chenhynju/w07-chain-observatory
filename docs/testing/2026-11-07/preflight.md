@@ -1,5 +1,10 @@
 # Testnet preflight — 2026-11-07
 
+> Update: the target deployer was changed to the funded legacy wallet
+> `0x0118e172324801a6333e7d0fAF7f9BB4ED72628F` (Base Sepolia 0.007976 ETH,
+> Ethereum Sepolia 0.05 ETH). The zero-balance preflight below is historical and applies to
+> the retired bootstrap wallet `0xA675...2d1B`.
+
 No transaction was broadcast. Both commands stopped at the balance guard.
 
 | Profile | Chain id | RPC | Deployer | Balance | Exit |

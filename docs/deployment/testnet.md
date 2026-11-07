@@ -1,26 +1,40 @@
 # Testnet deployment runbook
 
-Status: **PENDING FAUCET FUNDING**. Preflight confirmed Base Sepolia chain id 84532 and
-Ethereum Sepolia chain id 11155111 with a zero deployer balance; both runs stopped at the
-balance guard. No testnet transaction has been broadcast for this project yet. This file is a
-procedure, not a deployment record. Real addresses, hashes and blocks will be written to
-`deployments/` only after receipts exist. See
-[docs/testing/2026-11-07/preflight.md](../testing/2026-11-07/preflight.md).
+Status: **AWAITING SIGNING ACCESS**. The project now targets the funded legacy deployer
+`0x0118...628F`, which already holds Base Sepolia and Ethereum Sepolia ETH. No faucet drip is
+required. The remaining prerequisite is a local encrypted keystore for that address; no
+testnet transaction has been broadcast by this project yet. Real addresses, hashes and blocks
+will be written to `deployments/` only after receipts exist.
 
 ## Deployer
 
 | Item | Value |
 | --- | --- |
-| Address | `0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B` |
-| Keystore | `~/.foundry/keystores/w07-deployer` |
-| Password file | `~/.config/w07/deployer.password` (mode 600, outside the repo) |
+| Address | `0x0118e172324801a6333e7d0fAF7f9BB4ED72628F` |
+| Base Sepolia balance | 0.007976 ETH (checked 2026-11-07) |
+| Ethereum Sepolia balance | 0.05 ETH (checked 2026-11-07) |
+| Keystore | `~/.foundry/keystores/w07-legacy-deployer` |
+| Password file | `~/.config/w07/legacy-deployer.password` (mode 600, outside the repo) |
 | Purpose | Testnet-only deployment of `PairFixture` |
 
-The private key and password are never printed, committed, or placed in this repository.
-The keystore is encrypted with a random password. If the password file is lost, the wallet
-cannot be recovered; that is acceptable for a test-only deployer.
+The keystore and password file do not exist yet. Import the key locally (do not paste it into
+chat or a repository):
+
+```sh
+cast wallet import w07-legacy-deployer --keystore-dir ~/.foundry/keystores --interactive
+printf '%s' 'your-keystore-password' > ~/.config/w07/legacy-deployer.password
+chmod 600 ~/.config/w07/legacy-deployer.password
+```
+
+The deploy script derives the signer address and refuses to continue unless it matches
+`0x0118e172324801a6333e7d0fAF7f9BB4ED72628F`. If you intentionally use another wallet, set
+`W07_EXPECTED_DEPLOYER` and `W07_KEYSTORE` explicitly.
 
 ## 1. Fund the deployer
+
+**No faucet is required for this address.** The balances above are enough for the fixture
+deployment and its two event transactions. The faucet list below is kept for future reference
+or for a different wallet.
 
 The following channels were checked for the sibling b2-lending project on 2026-11-06.
 Eligibility and limits change; use whichever channel is available to you.
@@ -52,9 +66,9 @@ Check balances from WSL (the local HTTP proxy is required on this machine):
 
 ```sh
 export https_proxy=http://127.0.0.1:8899 http_proxy=http://127.0.0.1:8899
-cast balance 0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B \
+cast balance 0x0118e172324801a6333e7d0fAF7f9BB4ED72628F \
   --rpc-url https://sepolia.base.org --ether
-cast balance 0xA6755ec7C3f626a4C4c0D30803CE95D025D12d1B \
+cast balance 0x0118e172324801a6333e7d0fAF7f9BB4ED72628F \
   --rpc-url https://ethereum-sepolia-rpc.publicnode.com --ether
 ```
 

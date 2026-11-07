@@ -23,8 +23,9 @@ case "$profile" in
 esac
 
 RPC_URL=${RPC_URL:-$default_rpc}
-KEYSTORE=${W07_KEYSTORE:-$HOME/.foundry/keystores/w07-deployer}
-PASSWORD_FILE=${W07_PASSWORD_FILE:-$HOME/.config/w07/deployer.password}
+KEYSTORE=${W07_KEYSTORE:-$HOME/.foundry/keystores/w07-legacy-deployer}
+PASSWORD_FILE=${W07_PASSWORD_FILE:-$HOME/.config/w07/legacy-deployer.password}
+EXPECTED_DEPLOYER=${W07_EXPECTED_DEPLOYER:-0x0118e172324801a6333e7d0fAF7f9BB4ED72628F}
 PROXY=${W07_PROXY:-http://127.0.0.1:8899}
 RECORD_NAME=${W07_DEPLOY_RECORD:-$profile}
 LOCAL_SIMULATION=${W07_LOCAL_SIMULATION:-false}
@@ -50,6 +51,11 @@ if [[ -z "$private_key" ]]; then
 fi
 deployer=$(cast wallet address --private-key "$private_key")
 unset private_key password
+if [[ "${deployer,,}" != "${EXPECTED_DEPLOYER,,}" ]]; then
+  echo "Deployer mismatch: keystore is $deployer, expected $EXPECTED_DEPLOYER" >&2
+  echo "Set W07_EXPECTED_DEPLOYER only if you intentionally changed the deployment wallet." >&2
+  exit 2
+fi
 balance=$(cast balance "$deployer" --rpc-url "$RPC_URL" --ether)
 
 echo "profile:  $profile ($chain_id)"
