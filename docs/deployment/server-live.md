@@ -58,10 +58,12 @@ Checked on 2026-11-07 against `https://onchaindata.purelamp.uk/eth`:
 - `/lp-holders` → deployer balance `2,000,000` LP, `coverage: indexed-transfer-deltas`.
 - `/alerts?minToken0=500000000000000000000&height=12083602` → post-Sync swap with
   `token0In: 1,000`.
+- `/snapshot/12083602?finality=finalized` → `finality: finalized` once the RPC finalized height
+  passed the block.
 
-`/latest?finality=finalized` still reports `finality: unverified` because the newest fixture
-block is only minutes old and has not reached the RPC's finalized height yet. The endpoint
-does not silently upgrade finality when the requested block is not finalized.
+`/latest` always reports `finality: unverified`; it only returns the newest indexed Sync.
+Finality is verified per block through `/snapshot/:height?finality=finalized`, which returns
+`409` for a pending block and `503` when the RPC cannot answer.
 
 ## Reproduce
 
