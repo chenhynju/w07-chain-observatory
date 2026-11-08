@@ -9,3 +9,11 @@ apps/web/.next/
 *.tsbuildinfo
 out/
 cache/
+
+.vercel/
+
+__pycache__/
+
+*.py[cod]
+.vercel
+.env*
