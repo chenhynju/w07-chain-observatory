@@ -265,3 +265,7 @@ To index a real pair, copy `.env.example` to `.env`, set `W07_CHAIN`, `RPC_URL`,
   owns HTTP routing; Next.js owns rendering. Those frameworks are not reimplemented here.
 - The Solidity `ValuationModel` and `PairFixture` are small, purpose-built artifacts; their
   tool outputs are evidence for those exact artifacts, not for the TypeScript indexer.
+
+## Hosted UI evidence
+
+[Protected Vercel deployment](https://w07-chain-observatory-6n0r4iad7-purelamp.vercel.app). Authenticated Chromium desktop and 390px mobile rendering passed with no page errors or horizontal overflow. [Evidence](evidence/hosted-ui-20261109/acceptance.json). This check does not establish hosted wallet transaction acceptance. Access protection remains enabled.

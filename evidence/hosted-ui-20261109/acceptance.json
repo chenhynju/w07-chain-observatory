@@ -1,0 +1,12 @@
+{
+  "project": "w07-chain-observatory",
+  "status": "PASS",
+  "scope": "Authenticated hosted UI render; no wallet signing or public workflow claim",
+  "httpStatus": 200,
+  "title": "W07 Chain Observatory",
+  "h1": "Reserve truth at a specific block.",
+  "mobileOverflow": false,
+  "pageErrors": [],
+  "url": "https://w07-chain-observatory-6n0r4iad7-purelamp.vercel.app",
+  "sourceCommit": "2f5327edbee311461c6365c7107d0557ec1d9f20"
+}
