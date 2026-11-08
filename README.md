@@ -1,5 +1,6 @@
 # W07 Chain Observatory
 
+[Current self-assessment and release gates](docs/audit/review-2026-11-08.md) · [WSL source policy](docs/deployment/workspace-workflow.md)
 **Block-addressable Uniswap V2 reserve, swap and LP analytics, with an explicit coverage and finality model.**
 
 A TypeScript indexer built on Ponder that turns raw pair logs into reproducible reserve,

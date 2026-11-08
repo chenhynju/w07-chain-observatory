@@ -43,14 +43,8 @@ if [[ "$chain_id" != "$expected_chain" ]]; then
   exit 2
 fi
 
-password=$(cat "$PASSWORD_FILE")
-private_key=$(CAST_UNSAFE_PASSWORD="$password" cast wallet decrypt-keystore --keystore-dir "$(dirname "$KEYSTORE")" "$(basename "$KEYSTORE" .json)" | grep -Eo '0x[0-9a-fA-F]{64}' | tail -1)
-if [[ -z "$private_key" ]]; then
-  echo "Could not decrypt the keystore" >&2
-  exit 2
-fi
-deployer=$(cast wallet address --private-key "$private_key")
-unset private_key password
+# Let Foundry load the encrypted signer internally; never export a raw key to argv.
+deployer=$(cast wallet address --keystore "$KEYSTORE" --password-file "$PASSWORD_FILE")
 if [[ "${deployer,,}" != "${EXPECTED_DEPLOYER,,}" ]]; then
   echo "Deployer mismatch: keystore is $deployer, expected $EXPECTED_DEPLOYER" >&2
   echo "Set W07_EXPECTED_DEPLOYER only if you intentionally changed the deployment wallet." >&2
@@ -79,7 +73,7 @@ printf '%s\n' "$create_json" > "$log_dir/forge-create.json"
 pair=$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(j.deployedTo ?? "")' "$create_json")
 deploy_tx=$(node -e 'const j=JSON.parse(process.argv[1]); process.stdout.write(j.transactionHash ?? "")' "$create_json")
 if [[ ! "$pair" =~ ^0x[0-9a-fA-F]{40}$ || ! "$deploy_tx" =~ ^0x[0-9a-fA-F]{64}$ ]]; then
-  cat "$create_json" >&2
+  printf '%s\n' "$create_json" >&2
   cat "$log_dir/forge-create.err" >&2
   exit 1
 fi

@@ -1,0 +1,57 @@
+[
+  {
+    "project": "W07",
+    "command": [
+      "npm",
+      "run",
+      "check"
+    ],
+    "cwd": "/home/chenhy/workspace/web3-portfolio/w07-chain-observatory",
+    "startedAt": "2026-11-08T06:55:16.604849+00:00",
+    "seconds": 55.36,
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "/home/chenhy/workspace/web3-portfolio/portfolio-ops/evidence/2026-11-08/W07-0.log"
+  },
+  {
+    "project": "W07",
+    "command": [
+      "npm",
+      "test"
+    ],
+    "cwd": "/home/chenhy/workspace/web3-portfolio/w07-chain-observatory",
+    "startedAt": "2026-11-08T06:56:10.835787+00:00",
+    "seconds": 7.32,
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "/home/chenhy/workspace/web3-portfolio/portfolio-ops/evidence/2026-11-08/W07-1.log"
+  },
+  {
+    "project": "W07",
+    "command": [
+      "npm",
+      "run",
+      "web:check"
+    ],
+    "cwd": "/home/chenhy/workspace/web3-portfolio/w07-chain-observatory",
+    "startedAt": "2026-11-08T06:56:18.156842+00:00",
+    "seconds": 16.9,
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "/home/chenhy/workspace/web3-portfolio/portfolio-ops/evidence/2026-11-08/W07-2.log"
+  },
+  {
+    "project": "W07",
+    "command": [
+      "npm",
+      "run",
+      "fixture:test"
+    ],
+    "cwd": "/home/chenhy/workspace/web3-portfolio/w07-chain-observatory",
+    "startedAt": "2026-11-08T06:56:35.056540+00:00",
+    "seconds": 2.22,
+    "exitCode": 0,
+    "status": "PASS",
+    "log": "/home/chenhy/workspace/web3-portfolio/portfolio-ops/evidence/2026-11-08/W07-3.log"
+  }
+]

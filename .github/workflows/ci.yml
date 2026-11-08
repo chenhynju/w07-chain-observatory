@@ -10,12 +10,14 @@ permissions:
 
 jobs:
   indexer:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
-          node-version: 24
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.20.0
           cache: npm
       - run: npm ci
       - run: npm run check
@@ -23,12 +25,14 @@ jobs:
       - run: npm run coverage
 
   web:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
-          node-version: 24
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.20.0
           cache: npm
           cache-dependency-path: apps/web/package-lock.json
       - run: npm ci
@@ -41,9 +45,41 @@ jobs:
           INDEXER_URL: http://127.0.0.1:42069
 
   fixture:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: foundry-rs/foundry-toolchain@v1
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: foundry-rs/foundry-toolchain@dba66c27052e63476d886f22216e119ba7e615bf
+        with:
+          version: v1.8.1
       - run: forge test
         working-directory: testnet/fixtures
+
+  integration:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: 24.20.0
+          cache: npm
+      - uses: foundry-rs/foundry-toolchain@dba66c27052e63476d886f22216e119ba7e615bf
+        with:
+          version: v1.8.1
+      - name: PostgreSQL 16 test tools
+        run: |
+          test -x /usr/lib/postgresql/16/bin/initdb || (sudo apt-get update && sudo apt-get install -y postgresql-16)
+          /usr/lib/postgresql/16/bin/postgres --version
+      - run: npm ci --ignore-scripts --registry=https://registry.npmjs.org
+      - run: npm run smoke
+      - run: npm run smoke:postgres
+      - run: npm audit --audit-level=high
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f
+        if: always()
+        with:
+          name: w07-integration-evidence
+          path: evidence/

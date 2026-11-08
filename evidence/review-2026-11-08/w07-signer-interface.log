@@ -1,0 +1,9 @@
+Wallet options - keystore:
+      --keystore <PATH>
+          Use the keystore in the given folder or file
+          Use a keystore from the default keystores folder (~/.foundry/keystores) by its filename
+          The keystore password.
+          Used with --keystore.
+      --password-file <PASSWORD_FILE>
+          The keystore password file path.
+          Used with --keystore.

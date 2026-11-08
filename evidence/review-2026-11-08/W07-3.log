@@ -1,0 +1,18 @@
+
+> fixture:test
+> cd testnet/fixtures && forge test
+
+No files changed, compilation skipped
+
+Ran 8 tests for test/PairFixture.t.sol:PairFixtureTest
+[PASS] testBurnReducesReservesAndSupply() (gas: 162868)
+[PASS] testFuzzMintNeverOverflows(uint112,uint112) (runs: 1024, μ: 106310, ~: 106311)
+[PASS] testMintAndSwapWithPostSyncOrdersLogs() (gas: 169334)
+[PASS] testMintRejectsZeroRecipient() (gas: 30058)
+[PASS] testMintUpdatesReservesAndLpBalance() (gas: 117955)
+[PASS] testSwapEmitsSyncAfterReserveUpdate() (gas: 135372)
+[PASS] testSwapWithPostSyncKeepsOnlyPreSyncAmount() (gas: 138175)
+[PASS] testSwapWithoutSyncDoesNotChangeReserves() (gas: 128021)
+Suite result: ok. 8 passed; 0 failed; 0 skipped; finished in 128.77ms (190.60ms CPU time)
+
+Ran 1 test suite in 152.33ms (128.77ms CPU time): 8 tests passed, 0 failed, 0 skipped (8 total tests)

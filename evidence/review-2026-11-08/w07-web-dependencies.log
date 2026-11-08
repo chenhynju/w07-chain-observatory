@@ -1,0 +1,36 @@
+
+up to date, audited 28 packages in 8s
+
+6 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+added 27 packages, and audited 28 packages in 2m
+
+6 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {},
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "dependencies": {
+      "prod": 15,
+      "dev": 6,
+      "optional": 39,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 59
+    }
+  }
+}
