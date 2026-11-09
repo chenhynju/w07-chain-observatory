@@ -269,3 +269,5 @@ To index a real pair, copy `.env.example` to `.env`, set `W07_CHAIN`, `RPC_URL`,
 ## Hosted UI evidence
 
 [Protected Vercel deployment](https://w07-chain-observatory-6n0r4iad7-purelamp.vercel.app). Authenticated Chromium desktop and 390px mobile rendering passed with no page errors or horizontal overflow. [Evidence](evidence/hosted-ui-20261109/acceptance.json). This check does not establish hosted wallet transaction acceptance. Access protection remains enabled.
+
+[Engineering, self-review and public testnet evidence](docs/deployment/acceptance-2026-11-09.md)
