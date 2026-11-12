@@ -147,8 +147,10 @@ time were Base Sepolia `57602471` and Ethereum Sepolia `12115206`.
 | HTML contains `11155111` | no (Ethereum Sepolia series is not server-rendered on the landing view) |
 | HTML references `onchaindata.purelamp.uk`, `/eth/` or `sslip.io` | no (indexer URLs are resolved at runtime, not inlined) |
 
-No new commit reached GitHub during this run, so Vercel had nothing new to build. The live build
-still corresponds to `main` at `c99022c`.
+Two documentation-only commits were pushed during this run (`0a35019`, `b61279b`). The site was
+re-checked about 75 s after the push: still `200`, identical body length (`24301` bytes) and the
+same `84532` / fixture-address match — expected, because documentation edits do not change the
+build output.
 
 ## 4. Testnet fixtures
 
