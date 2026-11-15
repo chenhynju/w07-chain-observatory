@@ -178,3 +178,32 @@ curl -s https://w07-chain-observatory.vercel.app | grep -o "84532\|0x3d47126774E
 # eth_getCode 0x3d47126774E5B1E10d4Bf2093A52A1F0b2C6044F @ https://base-sepolia.gateway.tenderly.co
 # eth_getCode 0x4A9c4C103EC26ED88528A9c8DAf032BEdB854999 @ https://ethereum-sepolia-rpc.publicnode.com
 ```
+
+## Push outcome
+
+```
+$ # WSL: stage + commit the report
+[main fb93435] Add daily automation report for 2026-11-15
+ 1 file changed, 180 insertions(+)
+ create mode 100644 docs/deployment/automation-2026-11-15.md
+
+$ Set-Location \\wsl.localhost\Ubuntu-24.04\home\chenhy\workspace\web3-portfolio\w07-chain-observatory
+$ git -c core.filemode=false -c core.autocrlf=false -c core.hooksPath=C:/nonexistent-w07-hooks push origin main
+   6eeda60..fb93435  main -> main
+
+$ git ls-remote origin refs/heads/main
+fb934354cb28906e3b2a12f09d73e6ed68d80352    refs/heads/main
+```
+
+Report commit: `fb93435` (`fb934354cb28906e3b2a12f09d73e6ed68d80352`).
+
+Two Windows-side quirks were observed and worked around, both recorded verbatim above:
+
+- `git -C \\wsl.localhost\...` failed with `fatal: cannot change to ...: Invalid argument`, so the
+  repository was entered with `Set-Location` (which does work for Git for Windows on a UNC working
+  directory).
+- The inherited global `core.hooksPath` points at a WSL path unusable by Windows git; it was
+  redirected for the push only. The commit itself ran inside WSL with the real hook path intact.
+
+After the push, the Vercel check was repeated: `200`, `24301` bytes, containing both `84532` and the
+full pair address. The pushed commit only touches `docs/deployment/`.
