@@ -116,6 +116,11 @@ To https://github.com/chenhynju/w07-chain-observatory.git
 Verified afterwards: `git ls-remote origin refs/heads/main` → `e73bda0`. No force-push, no hook
 bypass (`--no-verify` was not used on either attempt).
 
+A follow-up commit correcting this section's first draft had to be pushed the same way and needed
+three attempts (`connection reset`, `connection reset`, then `e73bda0..018321a  main -> main`), so
+the instability is reproducible rather than a one-off. Final state: local `main` = remote `main` =
+`018321a`, with `?? README.zh-CN.md` and `?? evidence/closeout-20261114/` still untracked as before.
+
 ### 1c. Repository visibility — BLOCKED
 
 The runbook describes the repository as private. It is not, and this run changed nothing about it:
