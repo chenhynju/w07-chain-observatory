@@ -11,7 +11,7 @@ restarted, and no fixture was redeployed.
 | Step | Result |
 | --- | --- |
 | 1a. GitHub identity check inside WSL | PASS (direct egress; documented local proxy `127.0.0.1:8899` is gone) |
-| 1b. Push of this run's report commit | PASS via Windows fallback |
+| 1b. Push of this run's report commit | PASS from WSL (Windows git rejected: connection reset) |
 | 1c. Repository visibility = private | BLOCKED (repo is still **PUBLIC**, unchanged) |
 | 2. Server indexers, both instances | PASS |
 | 3. Vercel production deployment | PASS (verified from an external vantage point; local direct access BLOCKED) |
@@ -64,7 +64,7 @@ $ curl -s -o /dev/null -w '%{http_code} %{time_total}s\n' https://api.github.com
 
 The token value was never printed; the output above is the redacted form of `gh`'s own summary.
 
-### 1b. Push — PASS (Windows fallback)
+### 1b. Push — PASS from WSL, after the Windows route failed
 
 Sync state before the report commit:
 
@@ -81,6 +81,40 @@ $ git status --short --branch
 Local `main` was level with `origin/main` at `180a6fb`, so no rebase was needed. Only
 `docs/deployment/automation-2026-11-16.md` was committed; the two pre-existing untracked paths were
 deliberately left out.
+
+Commit (from WSL, so the `portfolio-ops` `pre-commit` hook applies normally):
+
+```
+$ git add docs/deployment/automation-2026-11-16.md
+$ git commit -m "Record 2026-11-16 daily automation run"
+[main e73bda0] Record 2026-11-16 daily automation run
+ 1 file changed, 208 insertions(+)
+```
+
+The runbook's preferred Windows route ran but could not reach GitHub — the real failure, recorded
+verbatim rather than worked around silently:
+
+```
+$ git -C \\wsl.localhost\Ubuntu-24.04\home\chenhy\workspace\web3-portfolio\w07-chain-observatory \
+    -c core.filemode=false -c core.autocrlf=false push origin main
+fatal: unable to access 'https://github.com/chenhynju/w07-chain-observatory.git/':
+Recv failure: Connection was reset
+```
+
+The same push from WSL first hit a transient TLS reset, then succeeded on retry:
+
+```
+$ GIT_TERMINAL_PROMPT=0 git push origin main
+fatal: unable to access 'https://github.com/chenhynju/w07-chain-observatory.git/':
+GnuTLS recv error (-110): The TLS connection was non-properly terminated.   # attempt 1
+
+$ GIT_TERMINAL_PROMPT=0 git push origin main
+To https://github.com/chenhynju/w07-chain-observatory.git
+   180a6fb..e73bda0  main -> main                                          # attempt 2
+```
+
+Verified afterwards: `git ls-remote origin refs/heads/main` → `e73bda0`. No force-push, no hook
+bypass (`--no-verify` was not used on either attempt).
 
 ### 1c. Repository visibility — BLOCKED
 
@@ -206,3 +240,5 @@ was not used.
 3. Vercel verification from this host needs an external fetch helper or a working proxy; treat a
    direct `000` from this machine as inconclusive rather than a failed deployment.
 4. Refresh the Vercel CLI credential if the deployments API is wanted for cross-checking.
+5. The Windows `git ... push` route is currently unusable from this host (connection reset to
+   github.com), so the runbook's "prefer Windows git" rule needs rethinking alongside item 1.
