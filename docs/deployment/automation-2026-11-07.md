@@ -27,7 +27,7 @@ It returned HTTP 200 and rendered the hero, metric cards, reserve chart and LP h
 with live data. The deployment is recorded in [vercel-live.md](vercel-live.md). The GitHub
 integration now deploys every push to `main`.
 
-The Cloudflare A record `w07-api` -> `43.130.127.57` is still pending, so
+The Cloudflare A record `w07-api` -> `office-host.example.invalid` is still pending, so
 `https://43-130-127-57.sslip.io` remains the API URL. The testnet funding blocker is unchanged:
 no transaction has been signed or broadcast.
 
